@@ -5,9 +5,19 @@ import { Button } from "./components/button/Button";
 
 function App() {
   const [count, setCount] = useState(0);
+  const [showError, setShowError] = useState(false);
+
 
   const updateCounter = (increase: boolean) => {
     setCount((currentValue) => {
+      if (count <= 0 && !increase){
+        setShowError(true)
+        return currentValue
+      }
+
+      else{ setShowError(false)
+        
+       }
       return increase ? currentValue + 1 : currentValue - 1;
     });
   };
@@ -21,6 +31,7 @@ function App() {
         <div className="card bg-white shadow text-center p-4 m-4">
           <h1>Counter: {count}</h1>
           <div className="d-flex justify-content-center flex-wrap gap-2">
+            
             <Button color="primary" onClick={() => updateCounter(true)}>
               Increase +
             </Button>
@@ -31,6 +42,8 @@ function App() {
               Reset
             </Button>
           </div>
+        
+          {showError && <div>Nullánál nem lehet kisebb</div>}
         </div>
       </div>
     </div>
